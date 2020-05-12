@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        var info = '<b>hello {{ name }}, 你多大啊? <br> 我{{ age }}岁了</b>'
+        var user = {
+            name: '张三',
+            age: 18
+        }
+        // 需要把user对象的数据添加到info字符串的插值位置
+
+        // info = info.replace('{{name}}', user.name)
+        // info = info.replace('{{age}}', user.age)
+        // document.body.innerHTML = info // hello 张三, 你多大啊? 我18岁了
+
+        // 如果数据很多的话上面替换就会很麻烦
+        // 可以通过正则替换
+        var pattern = /{{\s*([a-zA-Z]+)\s*}}/g
+        // exec匹配的结果: 从info中提取出 {{ name }}和name
+        var ret = pattern.exec(info)
+        // console.log(ret); // ["{{ name }}", "name", index: 9, input: "<b>hello {{ name }}, 你多大啊? <br> 我{{ age }}岁了</b>", groups: undefined]
+
+        var ret2 = pattern.exec(info)
+
+        var infoRep1 = info.replace(ret[0], user[ret[1]])
+        var infoRep2 = info.replace(ret2[0], user[ret2[1]])
+
+
+        // document.body.innerHTML = infoRep1 // hello 张三, 你多大啊? 我{{ age }}岁了
+        document.body.innerHTML = infoRep2 // hello {{ name }}, 你多大啊? 我18岁了
+
+        // 如果没有匹配到结果就返回null(结束条件)
+        var ret3 = pattern.exec(info)
+        console.log(ret3);
+    </script>
+</body>
+
+</html>

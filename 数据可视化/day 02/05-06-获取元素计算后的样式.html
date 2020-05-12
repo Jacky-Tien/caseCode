@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+
+  <body>
+    <div>呵呵</div>
+    <script>
+      var box = document.querySelector('div');
+
+      // window.getComputedStyle(ele[, pseudoElt]).属性
+      // 参数: ele 指定获取到的DOM对象
+      //       [, pseudoElt] 是否要获取元素的伪元素 ::after, 是可选的; 不过一般情况下都写null
+      // 返回值: 返回对象里面元素所有计算过后的样式
+
+      // console.log(box.style.fontSize); // 返回值是空的
+
+      var res = window.getComputedStyle(box, null).fontSize;
+      console.log(res); // 返回默认大小 16px
+    </script>
+  </body>
+</html>

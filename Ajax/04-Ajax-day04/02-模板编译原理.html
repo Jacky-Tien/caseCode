@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        var info = '<b>hello {{say}}</b>'
+        var say = '哈喽'
+        // 替换的结果
+        // var str = '<b>hello 哈喽</b>'
+        // document.body.innerHTML = str
+        // 把info字符串中的{{say}}替换成哈喽(编译)
+        var ret = info.replace('{{say}}', '哈喽')
+        console.log(ret);
+
+        document.body.innerHTML = ret
+
+
+    </script>
+</body>
+
+</html>

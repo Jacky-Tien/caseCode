@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/axios.min.js"></script>
+    <script>
+        // axios 发送post请求 post(url[, config]])
+        //           参数一: 请求地址
+        //           参数二: 请求参数, 可选
+        //           参数三: 配置对象, 可选
+        // 传统的表单提交的数据格式是 Content-Type, application/x-www.form-urlencoded
+        // axios的post请求方式, 默认发送的格式是JSON形式的参数 (Content-Type: application/json)
+        // 这种方式的请求参数需要后台提供支持
+        axios.post('http://www.liulongbin.top:3006/api/post', {
+            bookname: '额呵呵',
+            author: 'a哈哈',
+            publisher: 'sda是的'
+        }).then(function (res) {
+            console.log(res.data)
+        })
+
+
+        // -------------------------------------------------
+
+        $.post('http://www.liulongbin.top:3006/api/post', {
+            bookname: '额呵呵',
+            author: 'a哈哈',
+            publisher: 'sda是的'
+        }, function (res) {
+            console.log(res)
+        })
+    </script>
+</body>
+
+</html>

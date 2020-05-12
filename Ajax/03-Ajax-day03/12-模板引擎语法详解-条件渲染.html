@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script src="lib/jquery.js"></script>
+    <!-- 1. 导入模板引擎js库文件 -->
+    <script src="lib/template-web.js"></script>
+
+    <script id="my-tpl" type="text/html">
+    <!-- 2. 实现模板结构并填充数据 -->
+    <ul>
+        <li>姓名: {{name}}</li>
+        <li>年龄: {{age}}</li>
+        <li>性别: {{gender}}</li>
+        <!-- 1. 插值用法 ==>  {{@value}} -->
+        <li>分数: {{@score}}</li>
+
+        <!-- 条件渲染 ==> {{if value}} ... {{/if}} -->
+        <li>性别:
+            {{if sex === 0}}女
+            {{else if sex === 1}}男
+            {{else}}未知
+            {{/if}}
+        </li>
+
+    </ul>
+    </script>
+
+    <script>
+        $(function () {
+            // art-template 常用模板语法
+            // 1. 插值用法 ==>  {{@value}}
+            //    如果插值显示时添加@符号, 那么浏览器会解析其中的内容包含标签: 比如h1标签会加粗
+            //    默认不加@符号, 显示原始的字符串, 不会渲染标签     （类似于 innerText和innerHTML的区别）
+            // 2. 条件渲染 ==> {{if value}} ... {{/if}}
+            // 3. 列表渲染
+            // 4. 过滤器
+            var userInfo = {
+                name: '张三',
+                age: 18,
+                gender: '男',
+                score: '<b style="color: red;">100分</b>',
+                sex: '人妖',
+            }
+
+
+            var uTag = template('my-tpl', userInfo)
+
+            $('body').prepend(uTag)
+        })
+    </script>
+</body>
+
+</html>

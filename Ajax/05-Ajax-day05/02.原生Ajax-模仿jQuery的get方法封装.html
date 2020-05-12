@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        function handleParam(data) {
+            var pStr = ''
+            // 需要的数据格式 bookname=西游记&author=大萨达
+            for (var k in data) {
+                pStr += k + '=' + data[k] + '&'
+            }
+            //  去掉末尾多余的 &
+            if (pStr.length > 0 && pStr.lastIndexOf('&') === pStr.length - 1) {
+                pStr = pStr.slice(0, -1)
+            }
+            return encodeURI(pStr)
+        }
+
+        function get(url, data, callback) {
+            // console.log(typeof data, typeof callback);
+            // console.log(arguments);
+
+            // 1. 实例化xhr对象
+            var xhr = new XMLHttpRequest()
+
+            var pStr = handleParam(data)
+            url += '?' + pStr
+            // 2. 准备请求的参数
+            xhr.open('get', url)
+            // 3. 触发请求
+            xhr.send(null)
+            // 4. 监听服务器数据返回
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var res = JSON.parse(xhr.responseText)
+                    callback(res)
+                }
+            }
+        }
+
+        get('http://www.liulongbin.top:3006/api/getbooks', {
+            id: 1,
+            booname: '西游记'
+        }, function (res) {
+            console.log(res);
+        })
+    </script>
+</body>
+
+</html>

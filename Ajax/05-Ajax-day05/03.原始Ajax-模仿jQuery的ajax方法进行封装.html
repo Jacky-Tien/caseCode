@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        function ajax(options) {
+            // 1. 实例化xhr对象
+            var xhr = new XMLHttpRequest()
+
+            // 需要的数据格式 bookname=西游记&author=大萨达
+            var pStr = ''
+            for (var k in options.data) {
+                pStr += k + '=' + options.data[k] + '&'
+            }
+            // 去掉最后一个&符号
+            if (pStr.length > 0 && pStr.lastIndexOf('&') === pStr.length - 1) {
+                pStr = pStr.slice(0, -1)
+                // pStr = pStr.slice(0, pStr.length - 1)
+            }
+
+            // 2. 准备请求的参数
+            if (options.type === 'get') {
+                options.url += '?' + pStr
+            }
+            xhr.open(options.type, options.url)
+
+            // 3. 触发请求
+            if (options.type === 'get') {
+                xhr.send(null)
+            } else if (options.type === 'post') {
+                // post请求需要设置请求头(需要在xhr.open之后，xhr.send之前)
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+                xhr.send(pStr)
+            }
+
+            // 4. 监听服务器数据返回
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 服务端返回的原始数据是字符串 需要转为对象
+                    var res = JSON.parse(xhr.responseText)
+
+                    // 通过下面的 success的回调函数返回数据
+                    options.success(res)
+                }
+            }
+        }
+
+
+        /* ajax({
+            type: 'get',
+            url: 'http://www.liulongbin.top:3006/api/getbooks',
+            data: {
+                id: 1,
+                booname: '西游记'
+            },
+            success: function (res) {
+                console.log(res);
+            }
+        }) */
+
+        ajax({
+            type: 'post',
+            url: 'http://www.liulongbin.top:3006/api/addbook',
+            data: {
+                bookname: '特仑苏',
+                author: '大萨达',
+                publisher: '中华人民出版社'
+            },
+            success: function (res) {
+                console.log(res);
+            }
+        })
+    </script>
+</body>
+
+</html>

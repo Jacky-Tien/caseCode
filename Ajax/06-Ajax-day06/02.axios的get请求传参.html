@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/axios.min.js"></script>
+
+    <script>
+        // axios  get 请求传参的两种方式
+        // 一 通过url地址传递
+        axios.get('http://www.liulongbin.top:3006/api/getbooks?id=1&bookname=西游记')
+            .then(function (res) {
+                console.log(res.data)
+            })
+        // 二 通过 params属性传递 params是axios规定的属性名
+        axios.get('http://www.liulongbin.top:3006/api/getbooks', {
+            params: {
+                id: 1,
+                bookname: '西游记'
+            }
+        }).then(function (res) {
+            console.log(res.data)
+        })
+
+        // Ajax的传参 
+        // 一 通过url地址传递
+        $.get('http://www.liulongbin.top:3006/api/getbooks?id=1&bookname=西游记',
+            function (res) {
+                console.log(res)
+            })
+
+        // 二 通过 {}传递
+        $.get('http://www.liulongbin.top:3006/api/getbooks', {
+            id: 1,
+            bookname: '西游记'
+        }, function (res) {
+            console.log(res)
+        })
+
+    </script>
+</body>
+
+</html>

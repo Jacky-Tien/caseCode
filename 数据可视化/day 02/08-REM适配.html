@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 24px;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+    <style>
+      div {
+        width: 20rem;
+        height: 4rem;
+        background-color: pink;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>1111</div>
+    <script>
+      // REM适配的原理: 相对于html的font-size的大小 1rem = html的font-size大小
+
+      // 可以 js 动态修改html的fontSize大小
+      // resize 事件监听窗口大小发生改变
+      // 假设设计图的分辨率 宽度是1920像素
+      (function () {
+        var setFont = function (min, max, fontSize) {
+          var html = document.documentElement;
+          var width = window.innerWidth;
+          // console.log(winWidth);
+          width = Math.min(width, max);
+          width = Math.max(width, min);
+          html.style.fontSize = width / (max / fontSize) + 'px';
+        };
+        window.addEventListener('resize', function () {
+          setFont(1024, 1920, 24);
+        });
+      })();
+    </script>
+  </body>
+</html>

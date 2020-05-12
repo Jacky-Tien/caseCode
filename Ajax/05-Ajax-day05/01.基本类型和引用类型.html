@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        // js出距类型
+        // 基本数据类型 --> String、Number、Boolean、undefined、null
+        // console.log(typeof null) // object 历史遗留的bug 
+        // 引用数据类型 object (Array、Object、function、Date、Math...)
+        // console.log(typeof function () { }) // function 函数是js的特等公民
+
+        var obj1 = {
+            name: 'zs',
+            age: 18
+        }
+
+        var obj2 = {
+            name: 'zs',
+            age: 18
+        }
+        console.log(obj1 === obj2) // false 存的是地址 引用类型在栈 中存的都是地址
+
+        var o1 = JSON.stringify(obj1)
+        var o2 = JSON.stringify(obj2)
+        console.log(o1 === o2) // true 转了字符串 是简单数据类型
+
+
+    </script>
+</body>
+
+</html>

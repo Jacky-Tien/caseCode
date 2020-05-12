@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script src="lib/jquery.js"></script>
+    <script>
+        $(function () {
+
+            // ajax中的回调函数无法通过返回值得到异步的结果
+            /* function getBooks() {
+                $.get('http://www.liulongbin.top:3006/api/getbooks', function (res) {
+                    var books = res.data
+                    return books
+                })
+            }
+            var ret = getBooks()
+            console.log(ret) // undefined */
+
+            // 必须通过回调函数才能得到结果
+            function getBooks(callback) {
+                $.get('http://www.liulongbin.top:3006/api/getbooks', function (res) {
+                    var books = res.data
+                    callback(books)
+                })
+            }
+            getBooks(function (data) {
+                console.log(data);
+            })
+        })
+    </script>
+</body>
+
+</html>

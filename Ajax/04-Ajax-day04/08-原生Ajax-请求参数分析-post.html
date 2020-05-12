@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <button>点击发送请求</button>
+    <div></div>
+    <script>
+        var div = document.querySelector('div')
+        var btn = document.querySelector('button')
+        // 原生Ajax发送请求的基本步骤   XMLHttpRequest
+        btn.onclick = function () {
+            // 通过原生Ajax发送请求
+            // 1. 实例化xhr对象
+            var xhr = new XMLHttpRequest()
+            // 2. 准备发送请求的相关参数
+            // post方式发送请求通过xht.send()方法传递参数
+            xhr.open('post', 'http://www.liulongbin.top:3006/api/addbook')
+            // 3. 执行发送请求的动作
+            // 发送post请求携带参数 必须 要设置请求头(一定要设置)
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+            xhr.send('bookname=haha&&author=hehe&&publisher=xixi')
+            // 4. 指定回调函数, 用于处理服务端返回的数据
+            xhr.addEventListener('readystatechange', function () {
+                // 该函数是服务器返回数据后出发, 该方法不仅仅触发一次
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // 如果上述两个条件都满足，就可以获取服务器返回的正常数据
+                    // 返回的数据都被存放在 xhr的responseText属性上了, 而且是字符串类型的
+                    console.log(xhr.responseText);
+                    div.innerText = xhr.responseText
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+
+  <body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <script>
+      // jQuery封装-->基本架构-->自调用函数
+
+      // 1. 首先 怎么使用$(jQuery)
+      // 2. 把获取到的元素添加到jQ实例对象中
+      (function (window) {
+        // 先把jQuery 当成构造函数来用
+
+        var jQuery = function (selector) {
+          var elements = document.querySelectorAll(selector);
+          // console.log(elements);
+
+          // 隐式迭代(遍历)
+          /* for (var i = 0; i < elements.length; i++) {
+            // this指向了实例对象
+            // console.log(this);
+            this[i] = elements[i];
+          }
+          // 注意: 还需要手动维护length
+          this.length = elements.length; */
+
+          // 可以借用数组的push方法 添加伪数组的每一项 并且数组会自动维护length这个属性的
+          [].push.apply(this, elements);
+        };
+
+        new jQuery();
+        // 然后怎么把这个函数暴露到全局让全局使用 把它添加到全局对象window的对象上
+        window.jQuery = window.$ = jQuery;
+      })(window);
+
+      var $divs = new $('div'); // 实例对象 调用  new jQuery构造函数的方法
+      console.log($divs);
+    </script>
+  </body>
+</html>

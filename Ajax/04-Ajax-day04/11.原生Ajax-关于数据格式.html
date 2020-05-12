@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        // 如下的格式是自定义的（没有解析标准） 早期的数据格式
+        var str = 'uname:lisi;age:18;gender:male|uname:zs;age:20;gender:male'
+        // 如果想拿到每项数据需要一直分割, 太麻烦了
+
+        // 后来为了方便做数据解析, 就有了标准化的数据格式
+        // Ajax asynchronous and xml 
+        // XML是一种数据格式 (类似于HTML标签的结构)
+        // XML 建立了数据标准：数据格式统一 例如:
+        /* <userlist>
+            <user>
+                <uname>张三</uname>
+                <age>12</age>
+                <gender>male</gender>
+            </user>
+            <user>
+                <username>李四</username>
+                <age>13</age>
+                <gender>female</gender>
+            </user>
+        </userlist> */
+
+        // 但是这种格式缺陷很明显: 1. 代码冗余信息太多, 不方便前端解析  解析起来太繁琐
+
+        // 所以现在统一了一种更加合理的数据格式 JSON
+        var jsonStr = '{"uname": "zhangsan", "age": 18, "gender": "male"}'
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script src="lib/jquery.js"></script>
+    <!-- 1. 导入模板引擎js库文件 -->
+    <script src="lib/template-web.js"></script>
+    <script id="my-tpl" type="text/html">
+        <!-- 2. 实现模板结构并填充数据 -->
+    <ul>
+        <li>姓名: {{name}}</li>
+        <li>年龄: {{age}}</li>
+        <li>性别: {{gender}}</li>
+    </ul>
+    </script>
+    <script>
+        $(function () {
+            // 基于模板引擎art-template实现数据渲染
+            // 1. 导入模板引擎js库文件
+            // 2. 实现模板结构并填充数据
+            // 3. 调用js方法实现渲染
+
+            var userInfo = {
+                name: '张三',
+                age: 18,
+                gender: '男'
+            }
+
+            // 3. 调用js方法实现渲染
+            // 通过模板引擎把数据填充到模板中
+
+            // template参数
+            //   第一个参数: 表示模板的ID (内部封装的是通过document.getElementById获取DOM元素的)
+            //   第二个参数: 表示渲染模板的数据
+            var uTag = template('my-tpl', userInfo)
+
+            $('body').prepend(uTag)
+        })
+    </script>
+</body>
+
+</html>

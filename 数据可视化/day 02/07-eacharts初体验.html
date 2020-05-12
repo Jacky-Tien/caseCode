@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+
+  <body>
+    <!-- 2. 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+    <div id="main" style="width: 600px; height: 400px;"></div>
+    <!-- 1. 引入 ECharts 文件 -->
+    <script src="echarts.js"></script>
+    <script>
+      // 3. 基于准备好的dom，初始化echarts实例
+      var myChart = echarts.init(document.getElementById('main'));
+
+      // 指定图表的配置项和数据
+      var option = {
+        // 图表的标题
+        title: {
+          text: 'first echarts',
+        },
+        // 提示框
+        tooltip: {
+          show: true, // 默认显示
+        },
+        // 展现不同系列的标记、颜色和名字
+        legend: {
+          data: ['销量1', '销量2'],
+        },
+        // 坐标轴刻度标签 x轴
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+        },
+        // 直角坐标系 grid 中的 y 轴
+        yAxis: {
+          position: 'right', //y 轴的位置 可选 left right
+        },
+
+        // 系列列表。每个系列通过 type 决定自己的图表类型。可添加
+        series: [
+          {
+            name: '销量1',
+            type: 'line', // 点现状
+            data: [5, 10, 20, 8, 10, 30],
+            color: 'hotpink', // 修改颜色
+          },
+          {
+            name: '销量2',
+            type: 'bar',
+            data: [3, 10, 18, 20, 6, 20],
+          },
+        ],
+      };
+
+      // 4. 调用setOption()方法, 按照option配置, 渲染生成图表
+      myChart.setOption(option);
+    </script>
+  </body>
+</html>

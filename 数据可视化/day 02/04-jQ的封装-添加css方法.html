@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+
+  <body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <script>
+      // jQuery封装-->基本架构-->自调用函数
+
+      // 1. 首先 怎么使用$(jQuery)
+      // 2. 把获取到的元素添加到jQ实例对象中
+      // 3. 获取元素的时候如何省外面去new操作-->在 jQuery函数中进行new操作 把jQuery函数当做工厂函数(真实身份), 在工厂函数内部return new 构造函数(), 并在jQuery.prototype原型上 添加init方法, 把init作为构造函数(init是jQ真正的构造函数)
+      // 4. 添加css方法
+      (function (window) {
+        var jQuery = function (selector) {
+          return new jQuery.fn.init(selector);
+        };
+
+        jQuery.fn = jQuery.prototype = {
+          constructor: jQuery,
+          // init是jQ真正的构造函数
+          init: function (selector) {
+            var elements = document.querySelectorAll(selector);
+            [].push.apply(this, elements);
+          },
+          css: function (name, value) {
+            // 设置一个样式(是传两个参数)
+            if (arguments.length === 2) {
+              for (var i = 0; i < this.length; i++) {
+                // 注：name是变量不能用.语法, 需要用[]语法来操作
+                this[i].style[name] = value;
+              }
+            } else if (arguments.length === 1) {
+              //设置多个样式(对象的形式, 1个参数)
+              if (typeof name === 'object') {
+                // 给获取到的每一个元素都要设置上多个样式-->需要双重循环
+                for (var i = 0; i < this.length; i++) {
+                  // console.log(this[i]); // 每一个DOM对象
+                  for (var k in name) {
+                    // console.log(k, name[k]); // k 属性 name[k] 值
+                    this[i].style[k] = name[k];
+                  }
+                }
+              } else if (typeof name === 'string') {
+                // 获取元素属性 且只获取第一个元素的属性
+                // return this[0].style[name]; // 这个只能获取到行内元素
+
+                // 获取到的时候元素计算后的样式, 在元素身上起效果的样式
+                return window.getComputedStyle(this[0], null)[name];
+              }
+            }
+
+            return this; // 实现链式编程
+          },
+        };
+        // 添加方法之前要把 jQuery.fn.init.prototype 指向jQuery.prototype
+        // 为了init的实例对象可以使用css方法
+        jQuery.fn.init.prototype = jQuery.fn;
+        // 然后怎么把这个函数暴露到全局让全局使用 把它添加到全局对象window的对象上
+        window.jQuery = window.$ = jQuery;
+      })(window);
+
+      var $divs = $('div');
+      // console.log($divs);
+      // $divs.css();
+      // css方法有三种情况
+      // 1. 设置一个样式(是传两个参数)
+      $divs.css('color', 'pink');
+      // 2. 设置多个样式(对象的形式, 1个参数)
+      $divs
+        .css({
+          fontSize: '50px',
+          backgroundColor: '#333',
+          margin: '10px',
+        })
+        .css('lineHeight', '80px');
+      // 3. 获取元素属性 (参数是字符串类型的)
+      var res = $divs.css('padding');
+      console.log(res);
+    </script>
+  </body>
+</html>

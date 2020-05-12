@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        function cb(data) {
+            console.log(data)
+        }
+
+        // 动态创建script发送的请求就是异步的
+        // 动态创建一个script标签，通过他的src属性发送请求，然后把标签添加页码中，然后定义回调函数
+        var script = document.createElement('script')
+        script.setAttribute('src', 'http://www.liulongbin.top:3006/api/jsonp?callback=cb&name=zs')
+        var head = document.querySelector('head')
+        head.appendChild(script)
+        // 请求发送完成后再把刚刚创建的标签删除了
+        head.removeChild(script)
+
+    </script>
+</body>
+
+</html>

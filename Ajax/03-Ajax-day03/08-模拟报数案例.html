@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        // 模拟报数
+
+        // 第一个同学报数 1
+        function sayNo1(callback) {
+            setTimeout(function () {
+                var num = 1
+                callback(num)
+            }, 1000)
+        }
+
+        // 第一个同学报数结果
+        // sayNo1(function (n) {
+        //     console.log(n);
+        // })
+
+        // 第二个同学报数要等第一个同学报完
+        function sayNo2(callback, num) {
+            setTimeout(function () {
+                num++
+                callback(num)
+            }, 2000)
+        }
+
+        // 第三个同学报数要等第二个同学报完
+        function sayNo3(callback, num) {
+            setTimeout(function () {
+                num++
+                callback(num)
+            }, 3000)
+        }
+
+        sayNo1(function (n) {
+            sayNo2(function (n2) {
+                sayNo2(function (n3) {
+                    console.log(n3);
+                }, n2)
+            }, n)
+        })
+
+
+    </script>
+</body>
+
+</html>

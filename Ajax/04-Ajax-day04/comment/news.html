@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" href="assets/news.css" />
+
+</head>
+
+<body>
+
+  <div id="news-list">
+    <!-- <div class="news-item">
+      <img class="thumb" src="" alt="" />
+      <div class="right-box">
+        <h1 class="title">5G商用在即，三大运营商营收持续下降</h1>
+        <div class="tags">
+          <span>三大运营商</span>
+          <span>中国移动</span>
+          <span>5G商用</span>
+        </div>
+        <div class="footer">
+          <div>
+            <span>胡润百富</span>&nbsp;&nbsp;
+            <span>2019-10-28 10:14:38</span>
+          </div>
+          <span>评论数：66</span>
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+
+  <script src="lib/jquery.js"></script>
+  <script src="lib/template-web.js"></script>
+  <!-- 定义模板 -->
+  <script id="news-tpl" type="text/html">
+    {{each newsData}}
+    <div class="news-item">
+      <img class="thumb" src="{{'http://www.liulongbin.top:3006' + $value.img}}" alt="" />
+      <div class="right-box">
+        <h1 class="title">{{$value.title}}</h1>
+        <div class="tags">
+          {{each $value.tags}}
+          <span>{{$value}}</span>
+          {{/each}}
+        </div>
+        <div class="footer">
+          <div>
+            <span>{{$value.source + '\b'}}</span>
+            <span>{{$value.time | getDate}}</span>
+          </div>
+          <span>评论数：{{$value.cmtcount}}</span>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </script>
+
+  <script>
+    $(function () {
+      // 补零函数
+      function addZero(n) {
+        return n = n < 10 ? '0' + n : n
+      }
+
+      // 自定义模板过滤器
+      template.defaults.imports.getDate = function (date) {
+        // console.log(date);
+        var dt = new Date(date)
+        var y = dt.getFullYear()
+        var m = addZero(dt.getMonth() + 1)
+        var d = addZero(dt.getDate())
+        var hh = addZero(dt.getHours())
+        var mm = addZero(dt.getMinutes())
+        var ss = addZero(dt.getSeconds())
+        return y + '-' + m + '-' + d + '\n' + hh + ':' + mm + ':' + ss
+        // return dt.toLocaleDateString() + '\n' + dt.toLocaleTimeString()
+      }
+
+      // 获取服务端数据
+      function loadNewsList() {
+        $.ajax({
+          url: 'http://www.liulongbin.top:3006/api/news',
+          type: 'GET',
+          dataType: 'JSON',
+          success: function (res) {
+            console.log(res);
+            // 其中tags数字符串 需要转成数组
+            res.data.forEach((element, i) => {
+              element.tags = element.tags.split(',')
+              // console.log(element.tags, i);
+            });
+            // 调用template方法
+            var nTag = template('news-tpl', { newsData: res.data })
+            // 渲染到页面
+            $(nTag).appendTo('#news-list')
+
+            resetui()
+          }
+        })
+      }
+      loadNewsList()
+
+      resetui()
+    })
+  </script>
+</body>
+
+</html>

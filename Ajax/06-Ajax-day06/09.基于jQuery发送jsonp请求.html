@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script src="lib/jquery.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                // 请求地址
+                url: 'http://www.liulongbin.top:3006/api/jsonp',
+                // 请求参数
+                data: {
+                    name: 'zs',
+                    age: 18
+                },
+                // 数据类型
+                dataType: 'jsonp',
+                // jsonp属性的值为了迎合后端 (后端根据该名称获取回调函数的名字)
+                // jsonp的值决定了等号左侧的那个名字 
+                // callback=jQuery34103175597787641191_1589174587258
+                jsonp: 'callback',
+
+                // jsonpCallback决定等号右侧的内容(服务端返回的函数调用的名称)
+                // callback=jQuery
+                jsonpCallback: 'jQuery',
+                success: function (data) {
+                    console.log(data)
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

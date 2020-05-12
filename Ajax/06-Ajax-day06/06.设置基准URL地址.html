@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/axios.min.js"></script>
+    <script>
+        // 设置axios请求地址的基准路径
+        axios.defaults.baseURL = 'http://www.liulongbin.top:3006/'
+
+        /* axios({
+            method: 'get',
+            url: 'api/getbooks',
+            params: {
+                id: 1
+            }
+        }).then(function (res) {
+            console.log(res)
+        }) */
+
+        // 更简洁的写法
+        axios.get('api/getbooks?id=1').then(function (res) {
+            console.log(res)
+        })
+
+        axios({
+            method: 'post',
+            url: 'api/addbook',
+            data: {
+                bookname: '呵呵',
+                author: '哈哈',
+                publisher: '哈哈哈'
+            }
+        }).then(function (res) {
+            console.log(res)
+        })
+    </script>
+</body>
+
+</html>

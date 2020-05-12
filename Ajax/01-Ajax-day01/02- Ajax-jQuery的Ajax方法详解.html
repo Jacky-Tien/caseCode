@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+
+  <body>
+    <button id="btn">点击</button>
+    <div id="result"></div>
+    <script src="jquery-1.12.4.min.js"></script>
+    <script>
+      // $.ajax方法
+      // type 请求方式 (GET和POST), type的值不区分大小写
+      //      get主要目的是获取服务器的资源
+      //      post主要目的是向服务器提交数据
+      // url  请求地址
+      // data 请求参数
+      // dataType 响应数据类型
+      // success 服务器返回数据成功的回调函数
+
+      $(function () {
+        // 点击页面的一个按钮, 向服务器发送一个请求, 把服务器返回的结果显示到页面
+        // http://www.liulongbin.top:3006/api/getbooks
+
+        $('#btn').on('click', function () {
+          $.ajax({
+            // 请求方式, 默认是GET
+            type: 'get',
+            // 请求参数
+            data: {
+              id: 1,
+            },
+            // 服务器响应数据类型：dataType的取值由jQuery规定(json/text), 默认是json
+            dataType: 'json',
+            url: 'http://www.liulongbin.top:3006/api/getbooks',
+            success: function (res) {
+              // console.log(res);
+              // console.log($(this));
+              // 局部更新
+              $('#result').html(res.data[0].bookname);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

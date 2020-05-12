@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script src="lib/jquery.js"></script>
+    <!-- script标签的src属性 天生就有跨域获取数据的功能 -->
+    <!-- <script src="http://api.ehomespace.com/awards"></script> -->
+    <script>
+        // 跨域: Ajax跨域调用url地址无法获取数据 (浏览器同源策略限制了获取数据--主要是考虑到安全问题)
+        /* $.get('http://api.ehomespace.com/awards',
+            function (res) {
+                console.log(res)
+            }) */
+
+        // 通过script标签的src属性可以得到后台的数据，但是js代码得不到这个数据
+        // 这种发送的请求不是Ajax请求，就是普通的客户端请求
+        // 如果需要在js代码中得到这份数据需要怎么做？做法就是JSONP的原理
+
+
+        // 回调函数（后台接口返回的代码调用该回调函数）
+        // 回调函数的名称由参数callback的值决定
+        // callback这个名字是由后端决定的（只能看后端的脸色）
+        function cb(awards) {
+            console.log(awards);
+        }
+    </script>
+    <!-- script标签发送的请求是同步的 -->
+    <script src="http://www.liulongbin.top:3006/api/jsonp?callback=cb"></script>
+    <!-- cb({"message":"JSONP请求测试成功","data":{}}) -->
+</body>
+
+</html>

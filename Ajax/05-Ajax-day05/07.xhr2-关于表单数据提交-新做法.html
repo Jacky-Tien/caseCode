@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        span {
+            display: inline-block;
+            margin: 0 5px;
+            color: #ccc;
+            transform: scaleX(0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <label>
+            书　名:
+            <input type="text" name="bookname" id="bookname">
+        </label>
+        <span>|</span>
+        <label>
+            作　者:
+            <input type="text" name="author" id="author">
+        </label>
+        <span>|</span>
+        <label>
+            出版社:
+            <input type="text" name="publisher" id="publisher">
+        </label>
+        <input type="button" name="" value="提交" id="btn">
+    </form>
+    <script>
+        var btn = document.querySelector('#btn')
+        var inps = document.querySelectorAll('input')
+        btn.onclick = function () {
+            var bookname = inps[0].value.trim()
+            var author = inps[1].value.trim()
+            var publisher = inps[2].value.trim()
+
+            if ((bookname.length > 0) || (author.length > 0) || (publisher.length > 0)) {
+                var xhr = new XMLHttpRequest()
+                xhr.open('post', 'http://www.liulongbin.top:3006/api/formdata')
+                xhr.setRequestHeader('Content-Type', 'multipart/form-data')
+                // xhr.setRequestHeader('Content-Type', 'application/json charset=utf-8')
+                // 采用FormData提交的数据默认格式是 Content-Type , multipart/form-data
+                // 采用这种格式的数据需要后台提供支持
+                var fd = new FormData()
+                fd.append('bookname', bookname)
+                fd.append('author', author)
+                fd.append('publisher', publisher)
+                xhr.send(encodeURI(fd))
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var res = JSON.parse(xhr.responseText)
+                        console.log(res);
+                    }
+                }
+            } else {
+                return
+            }
+
+
+            inps[0].value = ''
+            inps[1].value = ''
+            inps[2].value = ''
+
+        }
+    </script>
+</body>
+
+</html>

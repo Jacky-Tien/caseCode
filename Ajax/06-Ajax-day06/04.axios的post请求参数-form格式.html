@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/axios.min.js"></script>
+    <script>
+        // axios 发送post请求 post(url[, config]])
+        // 强制post发送 XML格式请求参数 Content-Type, application/x-www.form-urlencoded
+        // 类似于FormData的用法, 专门参数传递
+        // URLSearchParams() 是一个标准的构造函数, 类似于FormData(), 新的API
+        var fd = new URLSearchParams()
+        fd.append('bookname', '额呵呵')
+        fd.append('author', 'a哈哈')
+        fd.append('publisher', 'sda是的')
+        // 发送请求时会转成下面的格式
+        // bookname=hehe&author=haha
+        // 这种格式的请求参数,服务器一般默认都支持
+        axios.post('http://www.liulongbin.top:3006/api/post', fd)
+            .then(function (res) {
+                console.log(res.data)
+            })
+
+
+        // -------------------------------------------------
+
+        $.ajax({
+            url: 'http://www.liulongbin.top:3006/api/post',
+            type: 'POST',
+            data: fd,
+            // ajax 强制post发送 XML格式请求参数 Content-Type, application/x-www.form-urlencoded
+            // 必须用&.ajax() processData: false,必须得写
+            // 修改默认的请求参数类型
+            processData: false,
+
+            success: function (res) {
+                console.log(res)
+            }
+        })
+    </script>
+</body>
+
+</html>

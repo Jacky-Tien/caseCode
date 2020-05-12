@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <form action="">
+        <input type="file" name="myfile" multiple="multiple" id="myfile">
+        <input id="btn" type="button" value="提交">
+    </form>
+    <div id="imgBox">
+        <img src="" alt="">
+    </div>
+    <script>
+        // 文件上传：把本地的图片选择到表单当中，下一步点击提交按钮，把文件数据提交服务器
+        // 服务器收到文件内容后会放到一个指定的磁盘中，并且向客户端返回文件的url地址
+        // 客户端收到url地址后，可以设置到img标签的src属性中，这样图片就可以展示出来
+
+        var btn = document.querySelector('#btn')
+        var img = document.querySelector('#imgBox img')
+        btn.addEventListener('click', function () {
+            var file = document.querySelector('#myfile').files[0]
+            console.log(file);
+            if (!file) {
+                alert('请选择文件')
+                return
+            } else {
+                // 需要基于FormData进行文件上传
+                var fd = new FormData()
+                // 将选中的文件添加到FormData当中
+                // avatar 名称由后台接口规定，作用是：后台通过该名字得到上传的文件信息
+                fd.append('avatar', file)
+
+                // 把得到的文件内容进行上传
+                var xhr = new XMLHttpRequest()
+                xhr.open('post', 'http://www.liulongbin.top:3006/api/upload/avatar')
+                // 处理文件上传
+                xhr.send(fd)
+                xhr.addEventListener('load', function () {
+                    if (xhr.status === 200) {
+                        var res = JSON.parse(xhr.responseText)
+                        console.log(res);
+                        img.setAttribute('src', 'http://www.liulongbin.top:3006' + res.url)
+                    }
+                })
+            }
+
+        })
+    </script>
+</body>
+
+</html>

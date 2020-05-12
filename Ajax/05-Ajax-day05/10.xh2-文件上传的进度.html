@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+</head>
+
+<body>
+    <form action="">
+        <input type="file" name="myfile" multiple="multiple" id="myfile" style="display: inline-block;">
+        <input id="btn" type="button" value="上传文件">
+    </form>
+    <div id="imgBox">
+        <img src="" alt="">
+    </div>
+    <!-- bootstrap 中的进度条 -->
+    <div class="progress" style="width: 500px; margin: 15px 10px;">
+        <div class="progress-bar progress-bar-striped active" style="width: 0%" id="percent">
+            0%
+        </div>
+    </div>
+    <script>
+        // 文件上传：把本地的图片选择到表单当中，下一步点击提交按钮，把文件数据提交服务器
+        // 服务器收到文件内容后会放到一个指定的磁盘中，并且向客户端返回文件的url地址
+        // 客户端收到url地址后，可以设置到img标签的src属性中，这样图片就可以展示出来
+
+        var btn = document.querySelector('#btn')
+        var img = document.querySelector('#imgBox img')
+        var percent = document.querySelector('#percent')
+        var progress = document.querySelector('.progress')
+        btn.addEventListener('click', function () {
+            var file = document.querySelector('#myfile').files[0]
+            if (!file) {
+                alert('请选择文件')
+                return
+            } else {
+                var fd = new FormData()
+                fd.append('avatar', file)
+
+                var xhr = new XMLHttpRequest()
+
+                // 监听文件上传的进度
+                xhr.upload.addEventListener('progress', function (e) {
+                    // 计算上传进度
+                    var num = Math.ceil((e.loaded / e.total) * 100)
+
+                    // 更新进度条效果
+                    percent.style.width = num + '%'
+                    percent.innerText = num + '%'
+                    console.log(percent.parentElement);
+                    console.log(num);
+
+                    /* if (num > 0 && num < 100) {
+                        progress.style.display = 'block'
+                    } else {
+                        progress.style.display = 'none'
+                    } */
+
+                })
+
+                // 文件上传完成后触发
+                xhr.upload.addEventListener('load', function (e) {
+                    // 文件上传完成后，修改进度条样式
+                    percent.classList.remove('progress-bar-striped', 'active')
+                    percent.classList.add('progress-bar-success')
+                })
+
+
+                xhr.open('post', 'http://www.liulongbin.top:3006/api/upload/avatar')
+                // 处理文件上传
+                xhr.send(fd)
+                xhr.addEventListener('load', function () {
+                    if (xhr.status === 200) {
+                        var res = JSON.parse(xhr.responseText)
+                        console.log(res);
+                        img.setAttribute('src', 'http://www.liulongbin.top:3006' + res.url)
+                    }
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

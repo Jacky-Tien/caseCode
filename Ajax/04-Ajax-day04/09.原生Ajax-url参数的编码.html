@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        // encodeURI() 编码函数
+        // decodeURI() 解码函数
+
+        var str = '啥时候线下哦'
+        var ret = encodeURI(str)
+        console.log(ret) // %E5%95%A5%E6%97%B6%E5%80%99%E7%BA%BF%E4%B8%8B%E5%93%A6
+
+        var ret2 = decodeURI(ret)
+        console.log(ret2);
+
+        // 如果是普通的英文字符串, 就不需要做编码的处理
+        // get参数如果需要传递中文, 那么必须经过编码处理
+        var info = {
+            bookname: '钢铁是怎样炼成的',
+            author: '尼古拉·奥斯特洛夫斯基',
+            publisher: '保尔·柯察金'
+        }
+        var iStr1 = encodeURI(info.bookname)
+        var iStr2 = encodeURI(info.author)
+        var iStr3 = encodeURI(info.publisher)
+        // console.log(iStr1, iStr2, iStr3)
+
+        var xhr = new XMLHttpRequest()
+        xhr.open('post', 'http://www.liulongbin.top:3006/api/addbook')
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        xhr.send('bookname=' + iStr1 + '&&author=' + iStr2 + '&&publisher=' + iStr3)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(JSON.parse(xhr.responseText))
+
+            }
+        }
+
+    </script>
+</body>
+
+</html>

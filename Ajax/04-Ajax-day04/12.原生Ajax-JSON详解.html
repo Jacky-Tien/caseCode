@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script>
+        // JSON 详解
+        // JavaScript Object Notation (javaScript对象标记语言)
+        // JSON是表述字符串的一种格式, 具体规则如下:
+
+        /*
+         1. 数据的结构为键值对 "key": "value"
+         2. key 必须是使用英文的双引号包裹的字符串
+         3. 字符串类型的值也必须使用英文的双引号包裹
+         4. JSON 中不能写注释
+         5. JSON 的最外层必须是对象{}或者数组[]格式
+         6. 不能使用 undefined 或者 函数 作为JSON的值
+         7. value的数据类型可以是  数字、字符串、null、布尔值、数组、对象 */
+
+        // 如下内容是覆盖JOSN规则的字符串
+        var str = '{"status":200,"msg":"获取图书列表成功","data":[{"id":1,"bookname":"西游记","author":"吴承恩","publisher":"北京图书出版社"},{"id":2,"bookname":"红楼梦","author":"曹雪芹","publisher":"上海图书出版社"},{"id":3,"bookname":"三国演义","author":"罗贯中","publisher":"北京图书出版社"},{"id":5,"bookname":"抗击疫情自传","author":"菲斯在-周末人","publisher":"广西出版社"},{"id":6,"bookname":"一本书","author":"李四","publisher":"abc"},{"id":7,"bookname":"hello","author":"abc","publisher":"nihao"},{"id":8,"bookname":"hello","author":"abc","publisher":"nihao"},{"id":9,"bookname":"三国演义","author":"罗贯中","publisher":"北京图书出版社"},{"id":10,"bookname":"hello","author":"abc","publisher":"haha"}]}'
+
+        // 把JSON字符串转成对象
+        var obj = JSON.parse(str)
+        console.log(obj)
+
+        // 把对象转成JSON字符串
+        var info = {
+            bookname: '钢铁是怎样炼成的',
+            author: '尼古拉·奥斯特洛夫斯基',
+            publisher: '保尔·柯察金'
+        }
+        var jsonStr = JSON.stringify(info)
+        console.log(jsonStr)
+
+    </script>
+</body>
+
+</html>

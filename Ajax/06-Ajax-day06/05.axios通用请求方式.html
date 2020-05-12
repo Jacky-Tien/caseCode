@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/axios.min.js"></script>
+    <script>
+        // axios三种方式
+        // axios.get()  axios.post()  axios() ---> 增删改查(CRUD-create-read-update-delete)
+
+        // axios() get请求方式
+        /* axios({
+            url: 'http://www.liulongbin.top:3006/api/get',
+            // 请求方式 get 获取
+            method: 'get',
+            params: {
+                bookname: '呵呵',
+                author: '哈哈',
+                publisher: '哈哈哈'
+            }
+        }).then(function (res) {
+            console.log(res);
+        }) */
+
+        // axios() post请求方式
+        /* axios({
+            url: 'http://www.liulongbin.top:3006/api/post',
+            // 请求方式 发送
+            method: 'post',
+            data: {
+                bookname: '呵呵',
+                author: '哈哈',
+                publisher: '哈哈哈'
+            }
+        }).then(function (res) {
+            console.log(res);
+        }) */
+
+
+        // 发送请求参数 form格式
+        var fd = new URLSearchParams()
+        fd.append('bookname', '呵呵')
+        fd.append('author', '哈哈')
+        fd.append('publisher', '哈哈哈')
+        axios({
+            url: 'http://www.liulongbin.top:3006/api/post',
+            method: 'post',
+            data: fd
+        }).then(function (res) {
+            console.log(res);
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <script>
+      // 位置：尽早的给html设置上fontSize大小，解决文字闪的问题。
+      // rem配置
+      (function () {
+        window.addEventListener('resize', function () {
+          var width = window.innerWidth;
+          width = Math.min(width, 1920);
+          width = Math.max(width, 1024);
+          document.documentElement.style.fontSize = width / 80 + 'px';
+        });
+      })();
+    </script>
+    <style>
+      li {
+        width: 16.6667rem;
+        height: 6.25rem;
+        margin: 0.8333rem 0;
+        list-style: none;
+        border: 0.8333rem solid #333;
+        background-color: hotpink;
+      }
+      li:nth-child(1) {
+        /* 边框图片路径 */
+        border-image: url(images/border.jpg);
+        /* 切分图片: 顺序是 上 右 下 左  跟设置margin等参数顺序一样 切记不要带px单位, 默认自带单位 */
+        border-image-slice: 167 167 167 167;
+        /* 边框图片的平铺方式: 默认 stretch 拉伸效果 
+        round 完整平铺
+        repeat 平铺, 中间往两边铺，可能会不完整
+        */
+        border-image-repeat: stretch;
+        /* 边框图片的宽度, 不写默认是设置的 border宽度 */
+        border-image-width: 0.4167rem;
+      }
+      li:nth-child(2) {
+        /* 边框图片路径 */
+        border-image: url(images/border.jpg);
+        /* 切分图片: 顺序是 上 右 下 左  跟设置margin等参数顺序一样 切记不要带px单位, 默认自带单位 */
+        border-image-slice: 167;
+        /* 边框图片的平铺方式: 默认 stretch 拉伸效果 
+        round 完整平铺
+        repeat 平铺, 中间往两边铺，可能会不完整
+        */
+        border-image-repeat: round;
+        /* 边框图片的宽度, 不写默认是设置的 border宽度 */
+        /* border-image-width: 0.4167rem; */
+      }
+      li:nth-child(3) {
+        /* 边框图片路径 */
+        border-image: url(images/border.jpg);
+        /* 切分图片: 顺序是 上 右 下 左  跟设置margin等参数顺序一样 切记不要带px单位, 默认自带单位 */
+        border-image-slice: 167;
+        /* 边框图片的平铺方式: 默认 stretch 拉伸效果 
+        round 完整平铺
+        repeat 平铺, 中间往两边铺，可能会不完整
+        */
+        border-image-repeat: repeat;
+        /* 边框图片的宽度, 不写默认是设置的 border宽度 */
+        /* border-image-width: 0.4167rem; */
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </body>
+</html>

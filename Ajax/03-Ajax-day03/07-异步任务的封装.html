@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+</head>
+
+<body>
+    <audio src="" id="voice" autoplay="autoplay" style="display: none;"></audio>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/jquery-ui.min.js"></script>
+    <script src="lib/jquery.mousewheel.js"></script>
+    <script>
+        $(function () {
+            // 客户端发送消息, 服务端返回回复消息
+            function getMsg(callback, txt) {
+                $.get('http://www.liulongbin.top:3006/api/robot', {
+                    spoken: txt
+                }, function (res) {
+                    callback(res.data.info.text)
+                })
+            }
+            // 将服务端返回的回复消息 在服务端返回转换后的语音数据
+            function changeVoice(callback, msg) {
+                $.get('http://www.liulongbin.top:3006/api/synthesize', {
+                    text: msg
+                }, function (res) {
+                    callback(res.voiceUrl)
+                })
+            }
+            getMsg(function (msg) {
+                changeVoice(function (voice) {
+                    $('#voice').attr('src', voice)
+                    // console.log($('#voice').get(0));
+                    // $('#voice')[0].load()
+                    // $('#voice')[0].play()
+                }, msg)
+            }, '唱首歌呗')
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>echarts</title>
+    <script>
+      // 位置：尽早的给html设置上fontSize大小，解决文字闪的问题。
+      // rem配置
+      (function () {
+        // resize 事件监听窗口大小发生改变
+        window.onresize = function () {
+          // 1. 获取到页面可视区的宽度
+          var width = window.innerWidth;
+          width = Math.min(width, 1920);
+          width = Math.max(width, 1024);
+
+          // 2. 给html设置上fontSize大小
+          document.documentElement.style.fontSize = width / 80 + 'px';
+        };
+        window.onresize();
+      })();
+    </script>
+    <link rel="stylesheet" href="fonts/icomoon.css" />
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="column">
+        <!--概览-->
+        <div class="overview panel">
+          <div class="inner">
+            <div class="item">
+              <h4>2,190</h4>
+              <span>
+                <i class="icon-dot" style="color: #006cff;"></i>
+                设备总数
+              </span>
+            </div>
+            <div class="item">
+              <h4>190</h4>
+              <span>
+                <i class="icon-dot" style="color: #6acca3;"></i>
+                季度新增
+              </span>
+            </div>
+            <div class="item">
+              <h4>3,001</h4>
+              <span>
+                <i class="icon-dot" style="color: #6acca3;"></i>
+                运营设备
+              </span>
+            </div>
+            <div class="item">
+              <h4>108</h4>
+              <span>
+                <i class="icon-dot" style="color: #ed3f35;"></i>
+                异常设备
+              </span>
+            </div>
+          </div>
+        </div>
+        <!--监控-->
+        <div></div>
+        <!--点位-->
+        <div></div>
+      </div>
+      <div class="column">
+        <!--地图-->
+        <div></div>
+        <!--用户-->
+        <div></div>
+      </div>
+      <div class="column">
+        <!--订单-->
+        <div></div>
+        <!--销售-->
+        <div></div>
+        <!--渠道 季度-->
+        <div></div>
+        <!--排行-->
+        <div></div>
+      </div>
+    </div>
+    <script src="js/echarts.js"></script>
+    <script src="js/jquery-1.12.4.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>

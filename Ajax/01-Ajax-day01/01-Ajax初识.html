@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title></title>
+  </head>
+
+  <body>
+    <button id="btn">点击</button>
+    <div id="result"></div>
+    <script src="jquery-1.12.4.min.js"></script>
+    <script>
+      $(function () {
+        // 点击页面的一个按钮, 向服务器发送一个请求, 把服务器返回的结果显示到页面
+        // http://www.liulongbin.top:3006/api/getbooks
+        $('#btn').on('click', function () {
+          $.ajax({
+            // 服务器端的URL地址
+            url: 'http://www.liulongbin.top:3006/api/getbooks',
+            // 请求方式
+            type: 'get',
+            // 回调函数-->服务器返回数据后出发
+            success: function (res) {
+              // res是服务端返回的所有数据
+              console.log(res);
+              // 局部更新的
+              $('#result').html(res.msg);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
